@@ -1,0 +1,172 @@
+name: "Content Analysis Agent"
+description: "AI-powered content analysis agent using ASI Alliance stack (uAgents, MeTTa, ASI:One) for bias detection, sentiment analysis, readability scoring, and topic extraction"
+version: "1.0.0"
+author: "ASI Alliance Hackathon Team"
+license: "MIT"
+
+# Agent Configuration
+agent:
+  name: "AggregatorAgent"
+  seed: "agg_seed"
+  endpoint: "https://your-domain.com/agent"
+
+# Protocols
+protocols:
+  - name: "ChatProtocol"
+    description: "Conversational interface for content analysis"
+    endpoints:
+      - path: "/chat"
+        method: "POST"
+        description: "Send messages to analyze content"
+        input_schema:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+              description: "Message to analyze (e.g., 'Rate this post: [content]')"
+            user_id:
+              type: "string"
+              description: "Optional user identifier"
+        output_schema:
+          type: "object"
+          properties:
+            response:
+              type: "string"
+              description: "Conversational response with analysis"
+            analysis:
+              type: "object"
+              description: "Detailed analysis data"
+              properties:
+                overall_score:
+                  type: "integer"
+                  description: "Overall content score (0-100)"
+                score_breakdown:
+                  type: "object"
+                  description: "Detailed score breakdown"
+                recommendations:
+                  type: "array"
+                  items:
+                    type: "string"
+                  description: "Content improvement recommendations"
+                main_topic:
+                  type: "string"
+                  description: "Main topic of the content"
+                secondary_topics:
+                  type: "array"
+                  items:
+                    type: "string"
+                  description: "Secondary topics"
+
+  - name: "PostRating"
+    description: "Structured content analysis protocol"
+    endpoints:
+      - path: "/analyze"
+        method: "POST"
+        description: "Analyze content and return structured results"
+        input_schema:
+          type: "object"
+          properties:
+            text:
+              type: "string"
+              description: "Content to analyze"
+            postUuid:
+              type: "string"
+              description: "Unique identifier for the post"
+        output_schema:
+          type: "object"
+          properties:
+            rating:
+              type: "integer"
+              description: "Overall rating (0-100)"
+            sentimentAnalysisScore:
+              type: "number"
+              description: "Sentiment score (-1 to 1)"
+            biasDetectionScore:
+              type: "number"
+              description: "Bias detection score (0-1)"
+            biasDetectionDirection:
+              type: "string"
+              description: "Bias direction (left-leaning, right-leaning, neutral)"
+            originalityScore:
+              type: "number"
+              description: "Originality score (0-1)"
+            similarityScore:
+              type: "number"
+              description: "Similarity score (0-1)"
+            readabilityFleschKincaid:
+              type: "number"
+              description: "Flesch-Kincaid readability score"
+            readabilityGunningFog:
+              type: "number"
+              description: "Gunning Fog readability score"
+            mainTopic:
+              type: "string"
+              description: "Main topic of the content"
+            secondaryTopics:
+              type: "array"
+              items:
+                type: "string"
+              description: "Secondary topics"
+
+# Capabilities
+capabilities:
+  - "Content Analysis"
+  - "Bias Detection"
+  - "Sentiment Analysis"
+  - "Readability Scoring"
+  - "Topic Extraction"
+  - "Conversational AI"
+  - "Real-time Processing"
+
+# Technologies
+technologies:
+  - "uAgents (Fetch.ai)"
+  - "MeTTa (SingularityNET)"
+  - "ASI:One (Fetch.ai)"
+  - "FastAPI"
+  - "PostgreSQL"
+  - "Python"
+
+# Tags for discovery
+tags:
+  - "content-analysis"
+  - "bias-detection"
+  - "sentiment-analysis"
+  - "readability"
+  - "topic-extraction"
+  - "ai-agent"
+  - "asi-alliance"
+  - "conversational"
+  - "real-time"
+  - "hackathon"
+
+# Dependencies
+dependencies:
+  - "uagents>=0.4.0"
+  - "hyperon>=0.1.0"
+  - "fastapi>=0.100.0"
+  - "requests>=2.31.0"
+  - "sqlalchemy>=2.0.0"
+  - "psycopg2-binary>=2.9.0"
+
+# Environment Variables
+environment:
+  - name: "ASI_API_KEY"
+    description: "ASI:One API key for content analysis"
+    required: true
+  - name: "DATABASE_URL"
+    description: "PostgreSQL database connection string"
+    required: false
+    default: "postgresql://user:pass@localhost:5432/content_analysis"
+
+# Health Check
+health_check:
+  endpoint: "/health"
+  method: "GET"
+  expected_response: "OK"
+
+# Documentation
+documentation:
+  api_docs: "https://your-domain.com/docs"
+  github: "https://github.com/your-org/content-analysis-agent"
+  demo: "https://your-domain.com/demo"

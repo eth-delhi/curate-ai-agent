@@ -1,0 +1,19 @@
+INFO:     Started server process [38669]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+⚠️  OPENAI_API_KEY not set. Please set your OpenAI API key.
+   export OPENAI_API_KEY='your-api-key-here'
+🚀 Starting OpenAI Content Analysis API...
+📚 API Documentation: http://localhost:8001/docs
+🔍 Single endpoint: POST http://localhost:8001/analyze/post
+🤖 Powered by OpenAI GPT-4...
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+INFO:     127.0.0.1:58647 - "POST /analyze/post HTTP/1.1" 500 Internal Server Error
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+INFO:     127.0.0.1:58647 - "POST /analyze/post HTTP/1.1" 500 Internal Server Error
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+❌ OpenAI client not initialized. Please set OPENAI_API_KEY environment variable.
+INFO:     127.0.0.1:58647 - "POST /analyze/post HTTP/1.1" 500 Internal Server Error

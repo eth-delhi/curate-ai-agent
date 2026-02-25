@@ -13,7 +13,8 @@ def calculate_readability(text: str) -> ReadabilityResponse:
     if not text.strip():
         return ReadabilityResponse(
             readabilityFleschKincaid=0.0,
-            readabilityGunningFog=0.0
+            readabilityGunningFog=0.0,
+            readabilityScore=0.0
         )
     
     # Basic text analysis
@@ -24,7 +25,8 @@ def calculate_readability(text: str) -> ReadabilityResponse:
     if word_count == 0:
         return ReadabilityResponse(
             readabilityFleschKincaid=0.0,
-            readabilityGunningFog=0.0
+            readabilityGunningFog=0.0,
+            readabilityScore=0.0
         )
     
     # Improved syllable counting
@@ -304,4 +306,26 @@ async def calculate_overall_score(sentiment_score: float, bias_score: float, rea
         }
     }
     
-    return final_score, score_breakdown
+    # Generate recommendations based on scores
+    recommendations = []
+    
+    if asi_analysis.get("ai_detection", 0.0) > 0.7:
+        recommendations.append("Content appears to be AI-generated. Consider adding more human perspective and personal insights.")
+    
+    if asi_analysis.get("plagiarism", 0.5) > 0.7:
+        recommendations.append("High plagiarism detected. Ensure content is original and properly attributed.")
+    
+    if bias_score > 0.7:
+        recommendations.append("Content shows significant bias. Consider presenting multiple perspectives.")
+    
+    if readability_fk < 30:
+        recommendations.append("Content is difficult to read. Consider simplifying language and sentence structure.")
+    
+    if asi_analysis.get("plagiarism", 0.5) < 0.3:  # Low plagiarism = high originality
+        if word_count < 30:
+            recommendations.append("Content is too short. Expand with more details, examples, or explanations.")
+    
+    if not recommendations:
+        recommendations.append("Content meets quality standards across all metrics.")
+    
+    return final_score, score_breakdown, recommendations
